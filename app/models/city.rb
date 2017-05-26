@@ -14,9 +14,12 @@ class City < ActiveRecord::Base
     end
   end
 
-
   def ratio_res_to_listings
-    reservation_count / listings.count
+    if self.listings.count.zero?
+      0
+    else
+      reservation_count / self.listings.count
+    end
   end
 
   def reservation_count
