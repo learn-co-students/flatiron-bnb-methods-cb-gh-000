@@ -9,5 +9,6 @@ class Listing < ActiveRecord::Base
   validates :listing_type, presence: true
   validates :title, presence: true
   validates :description, presence: true
-  validates :type, presence: true
+  validates :price, presence: true
+  validates :neighborhood_id, presence: true
 end
