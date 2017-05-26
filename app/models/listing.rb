@@ -6,6 +6,7 @@ class Listing < ActiveRecord::Base
   has_many :guests, :class_name => "User", :through => :reservations
 
   before_create :set_host
+  after_destroy :update_host_status
 
   validates :address, presence: true
   validates :listing_type, presence: true
@@ -18,5 +19,9 @@ class Listing < ActiveRecord::Base
 
   def set_host
     self.host.update(host: true)
+  end
+
+  def update_host_status
+    self.host.update(host: false) if self.host.listings.count.zero?
   end
 end
