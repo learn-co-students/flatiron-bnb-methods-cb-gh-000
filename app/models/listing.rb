@@ -15,6 +15,10 @@ class Listing < ActiveRecord::Base
   validates :price, presence: true
   validates :neighborhood_id, presence: true
 
+  def average_review_rating
+    self.reviews.average('rating')
+  end
+
   private
 
   def set_host
