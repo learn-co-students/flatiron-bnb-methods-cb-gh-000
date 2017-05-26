@@ -14,7 +14,31 @@ class City < ActiveRecord::Base
     end
   end
 
+
+  def ratio_res_to_listings
+    reservation_count / listings.count
+  end
+
+  def self.highest_ratio_res_to_listings
+    res_to_listings_ratios = self.all.map { |city| city.ratio_res_to_listings }
+    highest_ratio_res_to_listings = res_to_listings_ratios.max
+    self.all.find do |city|
+      city.ratio_res_to_listings == highest_ratio_res_to_listings
+    end
+  end
+
   private
+
+
+  def reservation_count
+    res_count = 0
+
+    listings.each do |listing|
+      res_count += listing.reservations.count
+    end
+
+    res_count
+  end
 
   def periods_overlap?(period_one_start, period_one_end, period_two_start, period_two_end)
     period_one_start <= period_two_end && period_one_end >= period_two_start
