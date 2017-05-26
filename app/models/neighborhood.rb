@@ -40,6 +40,14 @@ class Neighborhood < ActiveRecord::Base
     end
   end
 
+  def self.most_res
+    res_counts = self.all.map { |city| city.reservation_count }
+    highest_res_count = res_counts.max
+    self.all.find do |neighborhood|
+      neighborhood.reservation_count == highest_res_count
+    end
+  end
+
   private
 
   def periods_overlap?(period_one_start, period_one_end, period_two_start, period_two_end)
