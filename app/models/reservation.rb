@@ -3,12 +3,12 @@ class Reservation < ActiveRecord::Base
   belongs_to :guest, :class_name => "User"
   has_one :review
 
-  validate :guest_cannot_be_host
   validates :checkin, presence: true
   validates :checkout, presence: true
-
-  before_validation :checkin_date_must_be_available
-  before_validation :checkout_date_must_be_available
+  validate :guest_cannot_be_host
+  validate :checkin_must_be_before_checkout
+  validate :checkin_date_must_be_available
+  validate :checkout_date_must_be_available
 
   private
 
@@ -27,6 +27,12 @@ class Reservation < ActiveRecord::Base
   def checkout_date_must_be_available
     unless self.checkout && self.listing.available_for_res?(self.checkout)
       errors.add(:checkout, "The check-out date is not available.")
+    end
+  end
+
+  def checkin_must_be_before_checkout
+    if self.checkin && self.checkout && self.checkout <= self.checkin
+        errors.add(:checkout, "The check-out date must be after the check-in date.")
     end
   end
 end
