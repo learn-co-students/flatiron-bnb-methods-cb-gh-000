@@ -10,6 +10,10 @@ class Reservation < ActiveRecord::Base
   validate :checkin_date_must_be_available
   validate :checkout_date_must_be_available
 
+  def duration
+    self.checkout.mjd - self.checkin.mjd
+  end
+
   private
 
   def guest_cannot_be_host
