@@ -19,6 +19,18 @@ class Listing < ActiveRecord::Base
     self.reviews.average('rating')
   end
 
+  def available_for_res?(date)
+    available_for_res = true
+
+    self.reservations.each do |reservation|
+      if reservation.checkin <= date && reservation.checkout >= date
+        available_for_res = false
+      end
+    end
+
+    available_for_res
+  end
+
   private
 
   def set_host
