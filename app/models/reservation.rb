@@ -14,6 +14,10 @@ class Reservation < ActiveRecord::Base
     self.checkout.mjd - self.checkin.mjd
   end
 
+  def total_price
+    self.listing.price * self.duration
+  end
+
   private
 
   def guest_cannot_be_host
