@@ -16,8 +16,6 @@ class City < ActiveRecord::Base
     openings
   end
 
-
-
   def self.highest_ratio_res_to_listings
     record = {highest_reservations: 0, city_with_highest_r: nil, temp: 0}
 
