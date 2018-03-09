@@ -10,7 +10,7 @@ end
 class ListingCheckinAvailability < ActiveModel::Validator
   def validate(record)
     checkin_dates = []
-    record.listing.reservation.each do |reservation|
+    record.listing.reservations.each do |reservation|
       checkin_dates << reservation.checkin
     end
     unless checkin_dates.include?(record.checkin)
@@ -18,3 +18,4 @@ class ListingCheckinAvailability < ActiveModel::Validator
     end
   end
 end
+
