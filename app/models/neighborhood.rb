@@ -1,3 +1,4 @@
+
 require_relative './concerns/citymodule.rb'
 
 class Neighborhood < ActiveRecord::Base
