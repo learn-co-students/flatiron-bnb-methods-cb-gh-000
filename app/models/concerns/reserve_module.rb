@@ -25,15 +25,3 @@ class ValidateDates < ActiveModel::Validator
     end
   end
 end
-
-# class ListingCheckinAvailability < ActiveModel::Validator
-#   def validate(record)
-#     checkin_dates = []
-#     record.listing.reservations.each do |reservation|
-#       checkin_dates << reservation.checkin
-#     end
-#     unless checkin_dates.include?(record.checkin)
-#       record.errors[:checkin] << 'checkin not available'
-#     end
-#   end
-# end

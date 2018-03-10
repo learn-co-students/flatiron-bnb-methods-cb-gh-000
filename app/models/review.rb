@@ -6,8 +6,9 @@ class Review < ActiveRecord::Base
 
   belongs_to :reservation
   belongs_to :guest, :class_name => "User"
-  validates :rating, presence: true
+  validates :rating, presence: true, inclusion: { in: (0..5), message: "number is invalid"}
   validates :description, presence: true
+  validates :reservation, presence: true
   validates_with ValidReservation
 
 end
